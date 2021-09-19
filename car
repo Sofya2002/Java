@@ -1,0 +1,54 @@
+import java.util.*;
+import mypack.Car;
+class Main {
+public static void main(String[] args) {
+
+String model="";
+int maxSpeed=0, weight=0;
+Scanner in = new Scanner(System.in);
+int ctd = 0;//для понимания кол-ва аргумента
+
+
+System.out.println("Введите модель:");
+model = in.next();
+System.out.println("Вы хотите ввести максимальную скорость(y/n)");
+if (in.next().charAt(0)=='y')
+{
+System.out.println("Введите максимальную скорость:");
+maxSpeed = in.nextInt();
+ctd++;
+}
+
+System.out.println("Вы хотите ввести массу(y/n)");
+if (in.next().charAt(0)=='y')
+{
+System.out.println("Введите массу:");
+weight = in.nextInt();
+ctd+=2;
+}
+//если ctd = 0, то только модель
+// ctd = 1, то введена скорость и модель
+// ctd = 2, введена модель и вес
+// ctd = 3, то введены три параметра
+if (ctd == 0)
+{
+Car car = new Car(model);
+car.show();
+}
+if (ctd == 1)
+{
+Car car = new Car(model,maxSpeed);
+car.show();
+}
+if (ctd == 2)
+{
+Car car = new Car(model,maxSpeed,weight);
+car.show();
+}
+if (ctd == 3)
+{
+Car car = new Car(model,maxSpeed,weight);
+car.show();
+}
+}
+}
