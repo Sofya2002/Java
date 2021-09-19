@@ -1,0 +1,12 @@
+package mypack;
+
+public class Animal{
+private int height;
+private String sound;
+public String getSound(){
+return "RRR";
+}
+public boolean canEat(int classification){
+return false;
+}
+}
