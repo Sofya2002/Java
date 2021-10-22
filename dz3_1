@@ -1,0 +1,158 @@
+class Main {
+public static void main(String[] args) {
+// NumberPresentator - view of number, in constructor we transfer num (first arg) and i part (second)
+
+// Create NumberPresentation obj a_Number/b_Number
+// it contains num and i fields, but
+// Numbers obj will use only num part,
+// ComplexNumbers, will use num part and i part
+NumberPresentator a_Number = new NumberPresentator(10,2);
+NumberPresentator b_Number = new NumberPresentator(15,5);
+
+// Creating Numbers obj
+Numbers numbers = new Numbers();
+System.out.println("Real:");
+NumberPresentator result;
+result = numbers.add(a_Number, b_Number);
+result.print();
+result = numbers.substract(a_Number, b_Number);
+result.print();
+result = numbers.multuply(a_Number, b_Number);
+result.print();
+result = numbers.divide(a_Number, b_Number);
+result.print();
+
+
+System.out.println();
+System.out.println("Complex:");
+ComplexNumbers c_numbers = new ComplexNumbers();
+result = c_numbers.add(a_Number, b_Number);
+result.print_complex();
+result = c_numbers.substract(a_Number, b_Number);
+result.print_complex();
+result = c_numbers.multuply(a_Number, b_Number);
+result.print_complex();
+result = c_numbers.divide(a_Number, b_Number);
+result.print_complex();
+}
+}
+
+class NumberPresentator{
+
+// look 7 str
+
+double num;
+double i;
+// constructor
+NumberPresentator(double num,double i){
+this.num = num;
+this.i = i;
+}
+// number getter
+public double getNumber(){
+return num;
+}
+// i getter
+public double getI(){
+return i;
+}
+// print only num part
+public void print(){
+System.out.println(num);
+}
+// print num and i part
+public void print_complex(){
+System.out.print(num);
+System.out.print(" + ");
+System.out.print(i);
+System.out.println("i");
+}
+}
+
+interface AriphmeticOperations{
+// returns NumberPresentator obj
+NumberPresentator add(NumberPresentator a,NumberPresentator b);
+NumberPresentator substract(NumberPresentator a,NumberPresentator b);
+NumberPresentator multuply(NumberPresentator a,NumberPresentator b);
+NumberPresentator divide(NumberPresentator a,NumberPresentator b);
+}
+
+class Numbers implements AriphmeticOperations{
+public NumberPresentator add(NumberPresentator a,NumberPresentator b){
+// for example here n1 = 10
+// n2 = 15
+double n1 = a.getNumber();
+double n2 = b.getNumber();
+double n3 = n1+n2; // 25
+NumberPresentator np = new NumberPresentator(n3,0); // create an obj, which contains num = 25, i part = 0
+return np;
+}
+public NumberPresentator substract(NumberPresentator a,NumberPresentator b){
+double n1 = a.getNumber();
+double n2 = b.getNumber();
+double n3 = n1-n2;// -5
+NumberPresentator np = new NumberPresentator(n3,0);// create an obj, which contains num = -5, i part = 0
+return np;
+}
+public NumberPresentator multuply(NumberPresentator a,NumberPresentator b){
+double n1 = a.getNumber();
+double n2 = b.getNumber();
+double n3 = n1*n2; // 150
+NumberPresentator np = new NumberPresentator(n3,0);// create an obj, which contains num = 150, i part = 0
+return np;
+}
+public NumberPresentator divide(NumberPresentator a,NumberPresentator b){
+double n1 = a.getNumber();
+double n2 = b.getNumber();
+double n3 = n1/n2;
+NumberPresentator np = new NumberPresentator(n3,0);// etc
+return np;
+}
+}
+
+class ComplexNumbers implements AriphmeticOperations{
+public NumberPresentator add(NumberPresentator a,NumberPresentator b){
+//https://www.webmath.ru/poleznoe/formules_16_8.php#2
+//example - a = 10+2i, b = 15+5i
+double a1 = a.getNumber(); // 10
+double a2 = b.getNumber(); // 15
+double a3 = a1+a2; // 25
+double i1 = a.getI(); // 2
+double i2 = b.getI();// 5
+double i3 = i1+i2; // 7
+NumberPresentator np = new NumberPresentator(a3,i3);// 25+7i
+return np;
+}
+public NumberPresentator substract(NumberPresentator a,NumberPresentator b){//https://www.webmath.ru/poleznoe/formules_16_8.php#2
+double a1 = a.getNumber();
+double a2 = b.getNumber();
+double a3 = a1-a2;
+double i1 = a.getI();
+double i2 = b.getI();
+double i3 = i1-i2;
+NumberPresentator np = new NumberPresentator(a3,i3); //etc
+return np;
+}
+public NumberPresentator multuply(NumberPresentator a,NumberPresentator b){
+//https://www.webmath.ru/poleznoe/formules_16_9.php
+double a1 = a.getNumber(); // 10
+double a2 = b.getNumber(); // 15
+double i1 = a.getI(); // 2
+double i2 = b.getI(); // 5
+double a3 = a1*a2-i1*i2; // formula 10*15-2*5 = 140
+double i3 = a1*i2 + i1*a2; // formula 10*5 + 15*2 = 80
+NumberPresentator np = new NumberPresentator(a3,i3); //140 + 80i
+return np;
+}
+public NumberPresentator divide(NumberPresentator a,NumberPresentator b){
+//http://www.matematika.uznateshe.ru/delenie-kompleksny..
+double a1 = a.getNumber();
+double a2 = b.getNumber();
+double i1 = a.getI();
+double i2 = b.getI();
+double a3 = (a1*a2+i1*i2)/(a2*a2+i2*i2);
+double i3 = (i1*a2-a1*i2)/(a2*a2+i2*i2);
+NumberPresentator np = new NumberPresentator(a3,i3); // etc
+return np;
+}
+}
